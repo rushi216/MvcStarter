@@ -13,6 +13,8 @@ using System.Linq;
 using System.Web;
 using System.Web.Http;
 using System.Web.Mvc;
+using System.Data.Entity;
+using MvcStarter.Repository;
 
 namespace MvcStarter.App_Start
 {
@@ -23,7 +25,7 @@ namespace MvcStarter.App_Start
             var builder = new ContainerBuilder();
 
             // REGISTER DEPENDENCIES
-            builder.RegisterType<ApplicationDbContext>().AsSelf();
+            builder.RegisterType<ApplicationDbContext>().As<DbContext>();
             builder.RegisterType<ApplicationUserStore>().As<IUserStore<ApplicationUser>>();
             builder.RegisterType<ApplicationUserManager>().AsSelf();
             builder.RegisterType<ApplicationSignInManager>().AsSelf();
@@ -35,6 +37,8 @@ namespace MvcStarter.App_Start
 
             // register webapi controller
             builder.RegisterApiControllers(typeof(MvcApplication).Assembly);
+
+            builder.RegisterGeneric(typeof(DataRepository<>)).As(typeof(IDataRepository<>));
 
             var container = builder.Build();
 

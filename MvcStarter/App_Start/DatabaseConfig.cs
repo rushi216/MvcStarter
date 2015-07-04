@@ -15,7 +15,7 @@ namespace MvcStarter.App_Start
         {
             Database.SetInitializer<ApplicationDbContext>(new MigrateDatabaseToLatestVersion<ApplicationDbContext, Configuration>());
 
-            using (var dbContext = componentContext.Resolve<ApplicationDbContext>())
+            using (var dbContext = componentContext.Resolve<DbContext>())
             {
                 dbContext.Database.Initialize(false);
             }
