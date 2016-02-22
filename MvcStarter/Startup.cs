@@ -23,7 +23,7 @@ namespace MvcStarter
             
             DatabaseConfig.Initialize(container);
 
-            ConfigureAuth(app);
+            ConfigureAuth(app, container);
         }
     }
 }

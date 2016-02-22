@@ -15,6 +15,7 @@ using System.Web.Http;
 using System.Web.Mvc;
 using System.Data.Entity;
 using MvcStarter.Repository;
+using Microsoft.Owin.Security.OAuth;
 
 namespace MvcStarter.App_Start
 {
@@ -31,6 +32,8 @@ namespace MvcStarter.App_Start
             builder.RegisterType<ApplicationSignInManager>().AsSelf();
             builder.Register<IAuthenticationManager>(c => HttpContext.Current.GetOwinContext().Authentication);
             builder.Register<IDataProtectionProvider>(c => app.GetDataProtectionProvider());
+
+            builder.RegisterType<ApplicationOAuthProvider>().As<IOAuthAuthorizationServerProvider>().SingleInstance();
 
             // register mvc controllers
             builder.RegisterControllers(typeof(MvcApplication).Assembly);
